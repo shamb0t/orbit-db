@@ -167,21 +167,22 @@ If you want to give access to other peers to write to a database, you need to ge
 
 You can specify the peers that have write-access to a database. You can define a set of peers that can write to a database or allow anyone write to a database. **By default and if not specified otherwise, only the creator of the database will be given write-access**.
 
-***Note!*** *OrbitDB currently supports only write-access and the keys of the writers need to be known when creating a database. That is, the access rights can't be changed after a database has been created. In the future we'll support read access control and dynamic access control in a way that access rights can be added and removed to a database at any point in time without changing the database address. At the moment, if access rights need to be changed, the address of the database will change.*
+***Note!*** *OrbitDB currently supports only write-access (without revocation). That is, the access rights can't be removed after they've been added. In the future we'll support read access control and dynamic access control in a way that access rights can be added and removed to a database at any point in time without changing the database address. At the moment, if access rights need to be changed, the address of the database will change.*
 
-Access rights are setup by passing an `access` object that defines the access rights of the database when created. OrbitDB currently supports write-access. The access rights are specified as an array of public keys of the peers who can write to the database.
+Access rights are setup by passing an `accessController` object in the `options` defining the `type` and access rights of the database when created. By default, the `type` is an [`IPFSAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/ipfs-access-controller.js), which is an immutable access-controller. Access rights are specified as an array of public keys of the peers who can write to the database. If no write-keys are specified, only the database creator will have write-access.
 
 ```javascript
 const ipfs = new IPFS()
 ipfs.on('ready', async () => {
   const orbitdb = new OrbitDB(ipfs)
 
-  const access = {
+  const accessController = {
+    type: 'ipfs',
     // Give write access to ourselves
     write: [orbitdb.identity.publicKey],
   }
 
-  const db = await orbitdb.keyvalue('first-database', access)
+  const db = await orbitdb.keyvalue('first-database', { accessController: accessController })
   console.log(db.address.toString())
   // /orbitdb/Qmd8TmZrWASypEp4Er9tgWP4kCNQnW4ncSnvjvyHQ3EVSU/first-database
 })
@@ -198,7 +199,8 @@ const ipfs = new IPFS()
 ipfs.on('ready', async () => {
   const orbitdb = new OrbitDB(ipfs)
 
-  const access = {
+  const accessController = {
+    type: 'ipfs',
     // Setup write access
     write: [
       // Give access to ourselves
@@ -208,7 +210,7 @@ ipfs.on('ready', async () => {
     ],
   }
 
-  const db1 = await orbitdb.keyvalue('first-database', access)
+  const db1 = await orbitdb.keyvalue('first-database', { accessController: accessController})
   console.log(db1.address.toString())
   // /orbitdb/Qmdgwt7w4uBsw8LXduzCd18zfGXeTmBsiR8edQ1hSfzcJC/first-database
 
@@ -216,6 +218,55 @@ ipfs.on('ready', async () => {
   const db2 = await orbitdb.keyvalue(db1.address.toString())
 })
 ```
+#### Dynamically adding write-access
+
+OrbitDB also supports dynamically adding write-access with the following `AccessController` types:
+  - [`OrbitDBAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/orbitdb-access-controller.js) an orbitdb-based access-contoller, supports adding write-access after database creation.
+  <TODO add eventual consistency info>
+
+  ```javascript
+  const ipfs = new IPFS()
+  ipfs.on('ready', async () => {
+      const orbitdb = new OrbitDB(ipfs)
+
+      const accessController = {
+        type: 'orbitdb',
+        write: [orbitdb.identity.publicKey, /**others**/ ]
+      }
+
+      const db1 = await orbitdb.keyvalue('first-database', { accessController: accessController })
+  })
+  ```
+
+  - [`ContractAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/contract-access-controller.js) an ethereum-based access-contoller. Write-access keys can be added to a smart-contract. This requires a the following arguments to be passed in with the `options` object:
+    - `contractAddress` string specifying the address of the contract on-chain.
+    - `web3` Web3 instance connected to the chain/network.
+    - `abi` object specifying the smart-contract interface.
+
+  ```javascript
+  const ipfs = new IPFS()
+  ipfs.on('ready', async () => {
+      const orbitdb = new OrbitDB(ipfs)
+
+      const accessController = {
+        type: 'eth-contract',
+        contractAddress: contractAddress,
+        abi: abi,
+        web3: web3
+      }
+
+      const db1 = await orbitdb.keyvalue('first-database', { accessController: accessController })
+  })
+  ```
+
+  Write-access for these access-controller types can be granted as follows:
+
+  ```JavaScript
+    db1.access.grant('write', identity.publicKey)
+  ```
+
+#### Custom access controllers
+  
 
 #### Public databases
 
@@ -227,12 +278,12 @@ const ipfs = new IPFS()
 ipfs.on('ready', async () => {
   const orbitdb = new OrbitDB(ipfs)
 
-  const access = {
+  const accessController = {
     // Give write access to everyone
     write: ['*'],
   }
 
-  const db = await orbitdb.keyvalue('first-database', access)
+  const db = await orbitdb.keyvalue('first-database', { accessController })
   console.log(db.address.toString())
   // /orbitdb/QmRrauSxaAvNjpZcm2Cq6y9DcrH8wQQWGjtokF4tgCUxGP/first-database
 })
