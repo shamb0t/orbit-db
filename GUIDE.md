@@ -104,7 +104,7 @@ The first part, `/orbitdb`, specifies the protocol in use. The second part, an I
 In order to replicate the database with peers, the address is what you need to give to other peers in order for them to start replicating the database.
 
 The database address can be accessed as `db.address` from the database instance:
-```
+```javascript
 const address = db.address
 // address == '/orbitdb/Qmdgwt7w4uBsw8LXduzCd18zfGXeTmBsiR8edQ1hSfzcJC/first-database'
 ```
@@ -139,22 +139,24 @@ The database manifest can be fetched from IPFS and it looks like this:
 
 Each entry in a database is signed by who created that entry. The identity, which includes the public key used to sign entries, can be accessed via the identity member variable of the database instance:
 
-```
+```javascript
 const identity = db.identity
 console.log(identity.toJSON())
-//{ id: 'QmZyYjpG6SMJJx2rbye8HXNMufGRtpn9yFkdd27uuq6xrR',
-//  publicKey: '0446829cbd926ad8e858acdf1988b8d586214a1ca9fa8c7932af1d59f7334d41aa2ec2342ea402e4f3c0195308a4815bea326750de0a63470e711c534932b3131c',
-//  signatures:
-//   { id: '3045022058bbb2aa415623085124b32b254b8668d95370261ade8718765a8086644fc8ae022100c736b45c6b2ef60c921848027f51020a70ee50afa20bc9853877e994e6121c15',
-//     publicKey: '3046022100d138ccc0fbd48bd41e74e40ddf05c1fa6ff903a83b2577ef7d6387a33992ea4b022100ca39e8d8aef43ac0c6ec05c1b95b41fce07630b5dc61587a32d90dc8e4cf9766'
-//   },
-//  type: 'orbitdb'
-//}
+```
+```json
+{ "id": "QmZyYjpG6SMJJx2rbye8HXNMufGRtpn9yFkdd27uuq6xrR",
+  "publicKey": "0446829cbd926ad8e858acdf1988b8d586214a1ca9fa8c7932af1d59f7334d41aa2ec2342ea402e4f3c0195308a4815bea326750de0a63470e711c534932b3131c",
+  "signatures":
+   { "id": "3045022058bbb2aa415623085124b32b254b8668d95370261ade8718765a8086644fc8ae022100c736b45c6b2ef60c921848027f51020a70ee50afa20bc9853877e994e6121c15",
+     "publicKey": "3046022100d138ccc0fbd48bd41e74e40ddf05c1fa6ff903a83b2577ef7d6387a33992ea4b022100ca39e8d8aef43ac0c6ec05c1b95b41fce07630b5dc61587a32d90dc8e4cf9766"
+   },
+  "type": "orbitdb"
+}
 ```
 The identity also contains signatures proving possession of the id and OrbitDB public key. This is included to allow proof of ownership of an external public key within OrbitDB.
 
 The OrbitDB public key can be retrieved with:
-```
+```javascript
 console.log(db.identity.publicKey)
 // 04d009bd530f2fa0cda29202e1b15e97247893cb1e88601968abfe787f7ea03828fdb7624a618fd67c4c437ad7f48e670cc5a6ea2340b896e42b0c8a3e4d54aebe
 ```
