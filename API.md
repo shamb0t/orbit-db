@@ -80,6 +80,11 @@ Creates and returns an instance of OrbitDB. Use the optional `options` argument 
 
 - `identity` (Identity Instance): By default it creates an instance of [Identity](https://github.com/orbitdb/orbit-db-identity-provider/blob/master/src/identity.js)
 
+- `accessController` (AccessController Instance): By default it creates an instance of [`IPFSAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/ipfs-access-controller.js). If no write-keys are specified, only the database creator will have write-access. List of write-access keys in `IPFSAccessController` is immutable after database creation. For dynamically adding write-access keys, see other AccessControllers:
+  - [`ContractAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/contract-access-controller.js) an ethereum-based access-contoller. Write-access keys can be added to a smart-contract.
+  - [`OrbitDBAccessController`](https://github.com/orbitdb/orbit-db-access-controllers/blob/master/src/orbitdb-access-controller.js) an orbitdb-based access-contoller. Write-access keys can be added to an orbitdb instance.
+  //TODO add eventual consistency info
+
 After creating an `OrbitDB` instance, you can access the different data stores. Creating a database instance, eg. with `orbitdb.keyvalue(...)`, returns a *Promise* that resolves to a [database instance](#store-api). See the [Store](#store-api) section for details of common methods and properties.
 
 *For further details, see usage for [kvstore](https://github.com/orbitdb/orbit-db-kvstore#usage), [eventlog](https://github.com/orbitdb/orbit-db-eventstore#usage), [feed](https://github.com/orbitdb/orbit-db-feedstore#usage), [docstore](https://github.com/orbitdb/orbit-db-docstore#usage) and [counter](https://github.com/orbitdb/orbit-db-counterstore#usage).*
