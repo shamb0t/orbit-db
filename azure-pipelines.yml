@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'vs2017-win2016'
 
 steps:
 - task: NodeTool@0
@@ -17,6 +17,15 @@ steps:
 
 - script: |
     npm install
-    npm run build
-    npm test
-  displayName: 'npm install and build'
+    npm run test-windows
+  displayName: 'npm install and test'
+  
+  # Publish Test Results
+# Publish Test Results to Azure Pipelines/TFS
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+    testResultsFiles: 'test-results.xml'
+    #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+    #mergeTestResults: false # Optional
+    #failTaskOnFailedTests: false # Optional
