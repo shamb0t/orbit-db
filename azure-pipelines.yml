@@ -17,6 +17,7 @@ steps:
 
 - script: |
     npm install
+    npx mocha
     npm run test-windows
   displayName: 'npm install and test'
   
