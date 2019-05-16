@@ -36,6 +36,7 @@ Object.keys(testAPIs).forEach(API => {
     let localDataPath
 
     before(async () => {
+      rmrf.sync(dbPath)
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
 
@@ -60,7 +61,7 @@ Object.keys(testAPIs).forEach(API => {
 
     describe('Open & Load', function() {
       before(async () => {
-        db = await orbitdb.open('/orbitdb/QmWDUfC4zcWJGgc9UHn1X3qQ5KZqBv4KCiCtjnpMmBT8JC/v0-db', { directory: dbPath})
+        db = await orbitdb.open('/orbitdb/QmWDUfC4zcWJGgc9UHn1X3qQ5KZqBv4KCiCtjnpMmBT8JC/v0-db')
         await db.load()
       })
 
