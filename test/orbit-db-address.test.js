@@ -4,9 +4,10 @@ const assert = require('assert')
 const rmrf = require('rimraf')
 const OrbitDB = require('../src/OrbitDB')
 const OrbitDBAddress = require('../src/orbit-db-address')
+const path = require('path')
 
-const dbPath = './orbitdb/tests/orbit-db-address'
-const ipfsPath = './orbitdb/tests/orbit-db-address/ipfs'
+const dbPath = path.join('orbitdb', 'tests', 'orbit-db-address')
+const ipfsPath = path.join('orbitdb', 'tests', 'orbit-db-address', 'ipfs')
 
 const {
   config,
