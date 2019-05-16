@@ -44,7 +44,7 @@ Object.keys(testAPIs).forEach(API => {
       await fs.copy(path.join(ipfsFixturesDir, 'datastore'), path.join(ipfsd.path, 'datastore'))
       await fs.copy(dbFixturesDir, dbPath)
 
-      let identity = await Identities.createIdentity({ id: ipfs._peerInfo.id._idB58String, migrate: migrate(keyFixtures), identityKeysPath: path.join(dbPath, 'keys' })
+      let identity = await Identities.createIdentity({ id: ipfs._peerInfo.id._idB58String, migrate: migrate(keyFixtures), identityKeysPath: path.join(dbPath, 'keys') })
       orbitdb = await OrbitDB.createInstance(ipfs, { directory: dbPath, identity })
     })
 
