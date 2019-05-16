@@ -15,10 +15,10 @@ const {
   waitForPeers,
 } = require('./utils')
 
-const dbPath1 = './orbitdb/tests/counters/peer1'
-const dbPath2 = './orbitdb/tests/counters/peer2'
-const ipfsPath1 = './orbitdb/tests/counters/peer1/ipfs'
-const ipfsPath2 = './orbitdb/tests/counters/peer2/ipfs'
+const dbPath1 = path.join('orbitdb', 'tests', 'counters', 'peer1')
+const dbPath2 = path.join('orbitdb', 'tests', 'counters', 'peer2')
+const ipfsPath1 = path.join('orbitdb', 'tests', 'counters', 'peer1', 'ipfs')
+const ipfsPath2 = path.join('orbitdb', 'tests', 'counters', 'peer2', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
   describe(`orbit-db - Counters (${API})`, function() {
@@ -55,8 +55,8 @@ Object.keys(testAPIs).forEach(API => {
     })
 
     beforeEach(async () => {
-      orbitdb1 = await OrbitDB.createInstance(ipfs1, { directory: './orbitdb/1' })
-      orbitdb2 = await OrbitDB.createInstance(ipfs2, { directory: './orbitdb/2' })
+      orbitdb1 = await OrbitDB.createInstance(ipfs1, { directory: path.join('orbitdb', '1') })
+      orbitdb2 = await OrbitDB.createInstance(ipfs2, { directory: path.join('orbitdb', '2') })
     })
 
     afterEach(async () => {

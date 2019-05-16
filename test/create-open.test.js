@@ -61,7 +61,7 @@ Object.keys(testAPIs).forEach(API => {
         it('throws an error if given an address instead of name', async () => {
           let err
           try {
-            db = await orbitdb.create('/orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
+            db = await orbitdb.create('orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
           } catch (e) {
             err = e.toString()
           }
@@ -104,7 +104,7 @@ Object.keys(testAPIs).forEach(API => {
         })
 
         it('database has the correct address', async () => {
-          assert.equal(db.address.toString().indexOf('/orbitdb'), 0)
+          assert.equal(db.address.toString().indexOf('orbitdb'), 0)
           assert.equal(db.address.toString().indexOf('zd'), 9)
           assert.equal(db.address.toString().indexOf('second'), 59)
         })
@@ -200,7 +200,7 @@ Object.keys(testAPIs).forEach(API => {
         it('throws an error if given an address instead of name', async () => {
           let err
           try {
-            await orbitdb.determineAddress('/orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
+            await orbitdb.determineAddress('orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
           } catch (e) {
             err = e.toString()
           }
@@ -220,7 +220,7 @@ Object.keys(testAPIs).forEach(API => {
 
         it('returns the address that would have been created', async () => {
           db = await orbitdb.create('third', 'feed', { replicate: false })
-          assert.equal(address.toString().indexOf('/orbitdb'), 0)
+          assert.equal(address.toString().indexOf('orbitdb'), 0)
           assert.equal(address.toString().indexOf('zd'), 9)
           assert.equal(address.toString(), db.address.toString())
         })
