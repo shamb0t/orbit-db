@@ -17,9 +17,11 @@ steps:
 
 - script: |
     npm install
-    npx mocha
+  displayName: 'npm install'
+  
+- script: |
     npm run test-windows
-  displayName: 'npm install and test'
+  displayName: 'npm test'
   
   # Publish Test Results
 # Publish Test Results to Azure Pipelines/TFS
