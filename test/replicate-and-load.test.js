@@ -15,10 +15,10 @@ const {
   waitForPeers,
 } = require('./utils')
 
-const dbPath1 = './orbitdb/tests/replicate-and-load/1'
-const dbPath2 = './orbitdb/tests/replicate-and-load/2'
-const ipfsPath1 = './orbitdb/tests/replicate-and-load/1/ipfs'
-const ipfsPath2 = './orbitdb/tests/replicate-and-load/2/ipfs'
+const dbPath1 = path.join('orbitdb', 'tests', 'replicate-and-load', '1')
+const dbPath2 = path.join('orbitdb', 'tests', 'replicate-and-load', '2')
+const ipfsPath1 = path.join('orbitdb', 'tests', 'replicate-and-load', '1', 'ipfs')
+const ipfsPath2 = path.join('orbitdb', 'tests', 'replicate-and-load', '2', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
   describe(`orbit-db - Replicate and Load (${API})`, function() {

@@ -22,11 +22,11 @@ const {
   testAPIs,
 } = require('./utils')
 
-const dbPath = './orbitdb/tests/v0'
+const dbPath = path.join('orbitdb', 'tests', 'v0')
 
-const keyFixtures = './test/fixtures/keys/QmRfPsKJs9YqTot5krRibra4gPwoK4kghhU8iKWxBjGDDX'
-const dbFixturesDir = './test/fixtures/v0'
-const ipfsFixturesDir = './test/fixtures/ipfs'
+const keyFixtures = path.join('test', 'fixtures', 'keys', 'QmRfPsKJs9YqTot5krRibra4gPwoK4kghhU8iKWxBjGDDX')
+const dbFixturesDir = path.join('test', 'fixtures', 'v0')
+const ipfsFixturesDir = path.join('test', 'fixtures', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
   describe(`orbit-db - Backward-Compatibility - Open & Load (${API})`, function() {

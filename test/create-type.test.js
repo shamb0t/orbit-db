@@ -4,6 +4,7 @@ const assert = require('assert')
 const rmrf = require('rimraf')
 const DocumentStore = require('orbit-db-docstore')
 const OrbitDB = require('../src/OrbitDB')
+const path = require('path')
 
 // Include test utilities
 const {
@@ -13,8 +14,8 @@ const {
   testAPIs,
 } = require('./utils')
 
-const dbPath = './orbitdb/tests/create-open'
-const ipfsPath = './orbitdb/tests/create-open/ipfs'
+const dbPath = path.join('orbitdb', 'tests', 'create-open')
+const ipfsPath = path.join('orbitdb', 'tests', 'create-open','ipfs')
 
 class CustomStore extends DocumentStore {
   constructor (ipfs, id, dbname, options) {

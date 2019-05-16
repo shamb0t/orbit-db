@@ -46,7 +46,7 @@ Object.keys(testAPIs).forEach(API => {
         await stopIpfs(ipfsd)
     })
 
-    describe.only('Create', function() {
+    describe('Create', function() {
       describe('Errors', function() {
         it('throws an error if given an invalid database type', async () => {
           let err

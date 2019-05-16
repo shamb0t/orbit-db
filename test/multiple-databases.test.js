@@ -4,6 +4,7 @@ const assert = require('assert')
 const mapSeries = require('p-each-series')
 const rmrf = require('rimraf')
 const OrbitDB = require('../src/OrbitDB')
+const path = require('path')
 
 // Include test utilities
 const {
@@ -15,10 +16,10 @@ const {
   testAPIs,
 } = require('./utils')
 
-const dbPath1 = './orbitdb/tests/multiple-databases/1'
-const dbPath2 = './orbitdb/tests/multiple-databases/2'
-const ipfsPath1 = './orbitdb/tests/multiple-databases/1/ipfs'
-const ipfsPath2 = './orbitdb/tests/multiple-databases/2/ipfs'
+const dbPath1 = path.join('orbitdb', 'tests','multiple-databases', '1')
+const dbPath2 = path.join('orbitdb', 'tests', 'multiple-databases', '2')
+const ipfsPath1 = path.join('orbitdb', 'tests', 'multiple-databases','1', 'ipfs')
+const ipfsPath2 = path.join('orbitdb', 'tests', 'multiple-databases', '2', 'ipfs')
 
 const databaseInterfaces = [
   {

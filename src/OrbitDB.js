@@ -254,7 +254,7 @@ let databaseTypes = {
     const manifestHash = await createDBManifest(this._ipfs, name, type, accessControllerAddress, options)
 
     // Create the database address
-    return OrbitDBAddress.parse(path.join('/orbitdb', manifestHash, name))
+    return OrbitDBAddress.parse(['/orbitdb', manifestHash, name].join('/'))
   }
 
   /* Create and Open databases */

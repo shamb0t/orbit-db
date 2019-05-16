@@ -15,8 +15,8 @@ const {
   CustomTestCache
 } = require('./utils')
 
-const dbPath = './orbitdb/tests/persistency'
-const ipfsPath = './orbitdb/tests/persistency/ipfs'
+const dbPath = path.join('orbitdb', 'tests', 'persistency')
+const ipfsPath = path.join('orbitdb', 'tests', 'persistency', 'ipfs')
 
 const tests = [
   {
