@@ -18,14 +18,15 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
-  
+
 - script: |
     npm run test-windows
   displayName: 'npm test'
-  
+
   # Publish Test Results
 # Publish Test Results to Azure Pipelines/TFS
 - task: PublishTestResults@2
+  condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: 'test-results.xml'
