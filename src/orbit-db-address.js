@@ -17,6 +17,7 @@ class OrbitDBAddress {
 
   static isValid (pAddress) {
     let address = pAddress.toString().replace(/\\/g, '/')
+    console.log(address)
     const containsProtocolPrefix = (e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb')
 
     const parts = address.toString()
@@ -49,8 +50,8 @@ class OrbitDBAddress {
       .split('/')
       .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb'))
       .filter(e => e !== '' && e !== ' ')
-
-    return new OrbitDBAddress(parts[0], path.join(parts.slice(1, parts.length))
+    console.log(parts)
+    return new OrbitDBAddress(parts[0], parts.slice(1, parts.length).join('/'))
   }
 }
 

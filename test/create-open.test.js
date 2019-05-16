@@ -46,7 +46,7 @@ Object.keys(testAPIs).forEach(API => {
         await stopIpfs(ipfsd)
     })
 
-    describe('Create', function() {
+    describe.only('Create', function() {
       describe('Errors', function() {
         it('throws an error if given an invalid database type', async () => {
           let err
@@ -61,7 +61,7 @@ Object.keys(testAPIs).forEach(API => {
         it('throws an error if given an address instead of name', async () => {
           let err
           try {
-            db = await orbitdb.create('orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
+            db = await orbitdb.create('/orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
           } catch (e) {
             err = e.toString()
           }
@@ -104,7 +104,7 @@ Object.keys(testAPIs).forEach(API => {
         })
 
         it('database has the correct address', async () => {
-          assert.equal(db.address.toString().indexOf('orbitdb'), 0)
+          assert.equal(db.address.toString().indexOf('/orbitdb'), 0)
           assert.equal(db.address.toString().indexOf('zd'), 9)
           assert.equal(db.address.toString().indexOf('second'), 59)
         })
