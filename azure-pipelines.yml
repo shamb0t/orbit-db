@@ -26,8 +26,8 @@ steps:
     testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: './test-results.xml'
     
- - script: |
-      npm run test-windows
+- script: |
+    npm run test-windows
     #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
     #mergeTestResults: false # Optional
     #failTaskOnFailedTests: false # Optional
