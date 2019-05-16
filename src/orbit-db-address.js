@@ -12,12 +12,12 @@ class OrbitDBAddress {
   }
 
   toString () {
-    return path.join('/orbitdb', this.root, this.path)
+    return path.join('orbitdb', this.root, this.path)
   }
 
   static isValid (address) {
     address = address.toString().replace(/\\/g, '/')
-    const containsProtocolPrefix = (e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb')
+    const containsProtocolPrefix = (e, i) => !((i === 0 || i === 1) && address.toString().indexOf('orbit') === 0 && e === 'orbitdb')
 
     const parts = address.toString()
       .split('/')
@@ -45,8 +45,9 @@ class OrbitDBAddress {
       throw new Error(`Not a valid OrbitDB address: ${address}`)
 
     const parts = address.toString()
+      .replace(/\\/g, '/')
       .split('/')
-      .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb'))
+      .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('orbit') === 0 && e === 'orbitdb'))
       .filter(e => e !== '' && e !== ' ')
 
     return new OrbitDBAddress(parts[0], parts.slice(1, parts.length).join('/'))

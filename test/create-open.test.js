@@ -19,8 +19,8 @@ const {
   testAPIs,
 } = require('./utils')
 
-const dbPath = './orbitdb/tests/create-open'
-const ipfsPath = './orbitdb/tests/create-open/ipfs'
+const dbPath = path.join('orbitdb', 'tests', 'create-open')
+const ipfsPath = path.join('orbitdb', 'tests', 'create-open', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
   describe(`orbit-db - Create & Open (${API})`, function() {
