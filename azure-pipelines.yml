@@ -17,6 +17,5 @@ steps:
 
 - script: |
     npm install
-    echo "Stuff"
-    ./node_modules/.bin/mocha test
+    npm test
   displayName: 'npm install and test'
