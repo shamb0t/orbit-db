@@ -17,7 +17,7 @@ steps:
 
 - script: |
     npm install
-    npm test
+    npm run test-windows
   displayName: 'npm install and test'
   
   # Publish Test Results
@@ -25,7 +25,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-    testResultsFiles: './**/test-results.xml' 
+    testResultsFiles: './test-results.xml' 
     #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
     #mergeTestResults: false # Optional
     #failTaskOnFailedTests: false # Optional
