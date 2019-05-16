@@ -142,7 +142,7 @@ Object.keys(testAPIs).forEach(API => {
         })
 
         it('can pass local database directory as an option', async () => {
-          const dir = './orbitdb/tests/another-feed'
+          const dir = path.join('orbitdb', 'tests','another-feed')
           db = await orbitdb.create('third', 'feed', { directory: dir })
           localDataPath = path.join(dir, db.address.root, db.address.path)
           assert.equal(fs.existsSync(localDataPath), true)
@@ -200,7 +200,7 @@ Object.keys(testAPIs).forEach(API => {
         it('throws an error if given an address instead of name', async () => {
           let err
           try {
-            await orbitdb.determineAddress('orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
+            await orbitdb.determineAddress('/orbitdb/Qmc9PMho3LwTXSaUXJ8WjeBZyXesAwUofdkGeadFXsqMzW/first', 'feed')
           } catch (e) {
             err = e.toString()
           }
@@ -220,7 +220,7 @@ Object.keys(testAPIs).forEach(API => {
 
         it('returns the address that would have been created', async () => {
           db = await orbitdb.create('third', 'feed', { replicate: false })
-          assert.equal(address.toString().indexOf('orbitdb'), 0)
+          assert.equal(address.toString().indexOf('/orbitdb'), 0)
           assert.equal(address.toString().indexOf('zd'), 9)
           assert.equal(address.toString(), db.address.toString())
         })

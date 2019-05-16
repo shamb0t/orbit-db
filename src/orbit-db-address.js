@@ -12,12 +12,12 @@ class OrbitDBAddress {
   }
 
   toString () {
-    return path.join('orbitdb', this.root, this.path)
+    return path.join('/orbitdb', this.root, this.path)
   }
 
   static isValid (pAddress) {
     let address = pAddress.toString().replace(/\\/g, '/')
-    const containsProtocolPrefix = (e, i) => !((i === 0 || i === 1) && address.toString().indexOf('orbit') === 0 && e === 'orbitdb')
+    const containsProtocolPrefix = (e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb')
 
     const parts = address.toString()
       .split('/')
@@ -47,10 +47,10 @@ class OrbitDBAddress {
     const parts = address.toString()
       .replace(/\\/g, '/')
       .split('/')
-      .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('orbit') === 0 && e === 'orbitdb'))
+      .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb'))
       .filter(e => e !== '' && e !== ' ')
 
-    return new OrbitDBAddress(parts[0], parts.slice(1, parts.length).join('/'))
+    return new OrbitDBAddress(parts[0], path.join(parts.slice(1, parts.length))
   }
 }
 
