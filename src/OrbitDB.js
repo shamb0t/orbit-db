@@ -396,7 +396,7 @@ let databaseTypes = {
     if (!cache) {
       return false
     }
-    const data = await cache.get(path.join(dbAddress.toString(), '_manifest'))
+    const data = await cache.get([dbAddress.toString(), '_manifest'].join('/'))
     return data !== undefined && data !== null
   }
 
