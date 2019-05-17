@@ -36,7 +36,6 @@ Object.keys(testAPIs).forEach(API => {
     let localDataPath
 
     before(async () => {
-      rmrf.sync(dbPath)
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
 

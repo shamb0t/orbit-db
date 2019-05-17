@@ -49,6 +49,8 @@ class OrbitDBAddress {
       .split('/')
       .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb'))
       .filter(e => e !== '' && e !== ' ')
+
+    console.log("PARTS", parts)  
     return new OrbitDBAddress(parts[0], parts.slice(1, parts.length).join('/'))
   }
 }
