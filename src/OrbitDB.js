@@ -1,6 +1,5 @@
 'use strict'
 
-const path = require('path')
 const EventStore = require('orbit-db-eventstore')
 const FeedStore = require('orbit-db-feedstore')
 const KeyValueStore = require('orbit-db-kvstore')
@@ -370,7 +369,6 @@ let databaseTypes = {
   // Save the database locally
   async _addManifestToCache (directory, dbAddress) {
     const cache = await this._loadCache(directory, dbAddress)
-    console.log("root", dbAddress.root)
     await cache.set([dbAddress.toString(), '_manifest'].join('/'), dbAddress.root)
     logger.debug(`Saved manifest to IPFS as '${dbAddress.root}'`)
   }

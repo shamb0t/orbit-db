@@ -1,6 +1,4 @@
 'use strict'
-const path = require('path')
-const multihash = require('multihashes')
 const CID = require('cids')
 
 const notEmpty = e => e !== '' && e !== ' '

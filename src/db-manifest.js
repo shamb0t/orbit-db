@@ -1,4 +1,3 @@
-const path = require('path')
 const io = require('orbit-db-io')
 
 // Creates a DB manifest file and saves it in IPFS
