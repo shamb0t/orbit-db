@@ -24,7 +24,7 @@ steps:
   displayName: 'npm install'
 
 - script: |
-    npm run test-windows
+    npm run test-junit
   displayName: 'npm test'
 
   # Publish Test Results
