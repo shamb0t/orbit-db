@@ -284,6 +284,7 @@ Object.keys(testAPIs).forEach(API => {
       it('doesn\'t open a database if we don\'t have it locally', async () => {
         const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'non-existent')
         return new Promise((resolve, reject) => {
+          setTimeout(() => reject(), 100)
           orbitdb.open(address)
             .then(async () => {
               await orbitdb.close()
