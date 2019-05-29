@@ -31,9 +31,7 @@ Object.keys(testAPIs).forEach(API => {
 
     before(async () => {
       config.daemon1.repo = ipfsPath
-      rmrf.sync(config.daemon1.repo)
-      rmrf.sync(dbPath1)
-      rmrf.sync(dbPath2)
+      rmrf.sync(path.join('orbitdb', 'tests', 'replication-status'))
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
       orbitdb1 = await OrbitDB.createInstance(ipfs, { directory: dbPath1 })

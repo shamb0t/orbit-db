@@ -31,8 +31,8 @@ Object.keys(testAPIs).forEach(API => {
 
     before(async () => {
       config.daemon1.repo = ipfsPath
-      rmrf.sync(config.daemon1.repo, { maxBusyTries: 10 })
-      rmrf.sync(dbPath, { maxBusyTries: 10 })
+      rmrf.sync(config.daemon1.repo)
+      rmrf.sync(dbPath)
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
       orbitdb = await OrbitDB.createInstance(ipfs, { directory: dbPath })
@@ -284,7 +284,7 @@ Object.keys(testAPIs).forEach(API => {
       it('doesn\'t open a database if we don\'t have it locally', async () => {
         const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'non-existent')
         return new Promise((resolve, reject) => {
-          setTimeout(resolve, 900)
+          setTimeout(resolve, 100)
           orbitdb.open(address)
             .then(() => reject(new Error('Shouldn\'t open the database')))
             .catch(reject)
