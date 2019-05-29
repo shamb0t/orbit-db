@@ -31,8 +31,8 @@ Object.keys(testAPIs).forEach(API => {
 
     before(async () => {
       config.daemon1.repo = ipfsPath
-      rmrf.sync(config.daemon1.repo)
-      rmrf.sync(dbPath)
+      rmrf.sync(config.daemon1.repo, { maxBusyTries: 10 })
+      rmrf.sync(dbPath, { maxBusyTries: 10 })
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
       orbitdb = await OrbitDB.createInstance(ipfs, { directory: dbPath })
@@ -44,9 +44,6 @@ Object.keys(testAPIs).forEach(API => {
 
       if (ipfsd)
         await stopIpfs(ipfsd)
-
-      rmrf.sync(config.daemon1.repo)
-      rmrf.sync(dbPath)
     })
 
     describe('Create', function() {
