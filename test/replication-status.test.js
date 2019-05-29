@@ -48,6 +48,8 @@ Object.keys(testAPIs).forEach(API => {
 
       if (ipfsd)
         await stopIpfs(ipfsd)
+
+      await db.close()
     })
 
     it('has correct initial state', async () => {
