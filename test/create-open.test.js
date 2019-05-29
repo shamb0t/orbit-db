@@ -39,13 +39,12 @@ Object.keys(testAPIs).forEach(API => {
     })
 
     after(async () => {
+      await db.close()
       if(orbitdb)
         await orbitdb.stop()
 
       if (ipfsd)
         await stopIpfs(ipfsd)
-
-      await db.close()
     })
 
     describe('Create', function() {
@@ -292,7 +291,7 @@ Object.keys(testAPIs).forEach(API => {
           })
       })
 
-      it('throws an error if trying to open a database locally and we don\'t have it', () => {
+      it('throws an error if trying to open a database locally and we don\'t have it', async () => {
         const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'second')
         db = await orbitdb.open(address, { localOnly: true })
           .then(async () => new Error('Shouldn\'t open the database'))
