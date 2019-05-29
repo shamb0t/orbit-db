@@ -23,7 +23,7 @@ const dbPath = path.join('orbitdb', 'tests', 'create-open')
 const ipfsPath = path.join('orbitdb', 'tests', 'create-open', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
-  describe(`orbit-db - Create & Open (${API})`, function() {
+  describe.only(`orbit-db - Create & Open (${API})`, function() {
     this.timeout(config.timeout)
 
     let ipfsd, ipfs, orbitdb, db, address
@@ -44,6 +44,9 @@ Object.keys(testAPIs).forEach(API => {
 
       if (ipfsd)
         await stopIpfs(ipfsd)
+
+      rmrf.sync(config.daemon1.repo)
+      rmrf.sync(dbPath)
     })
 
     describe('Create', function() {

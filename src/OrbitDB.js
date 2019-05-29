@@ -334,6 +334,7 @@ let databaseTypes = {
     const dbAddress = OrbitDBAddress.parse(address)
 
     // Load the locally saved db information
+    console.log("LOADING CACHE", directory, dbAddress)
     const cache = await this._loadCache(directory, dbAddress)
 
     // Check if we have the database
