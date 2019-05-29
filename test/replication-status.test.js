@@ -18,9 +18,9 @@ const {
   testAPIs,
 } = require('./utils')
 
-const dbPath1 = path.join('orbitdb', 'tests', 'create-open', '1')
-const dbPath2 = path.join('orbitdb', 'tests', 'create-open', '2')
-const ipfsPath = path.join('orbitdb', 'tests', 'create-open', 'ipfs')
+const dbPath1 = path.join('orbitdb', 'tests', 'replication-status', '1')
+const dbPath2 = path.join('orbitdb', 'tests', 'replication-status', '2')
+const ipfsPath = path.join('orbitdb', 'tests', 'replication-status', 'ipfs')
 
 Object.keys(testAPIs).forEach(API => {
   describe.only(`orbit-db - Replication Status (${API})`, function() {
@@ -32,8 +32,8 @@ Object.keys(testAPIs).forEach(API => {
     before(async () => {
       config.daemon1.repo = ipfsPath
       rmrf.sync(config.daemon1.repo)
-      rmrf.sync(dbPath1, { maxBusyTries: 10 })
-      rmrf.sync(dbPath2, { maxBusyTries: 10 })
+      rmrf.sync(dbPath1)
+      rmrf.sync(dbPath2)
       ipfsd = await startIpfs(API, config.daemon1)
       ipfs = ipfsd.api
       orbitdb1 = await OrbitDB.createInstance(ipfs, { directory: dbPath1 })
@@ -50,10 +50,6 @@ Object.keys(testAPIs).forEach(API => {
 
       if (ipfsd)
         await stopIpfs(ipfsd)
-
-      rmrf.sync(config.daemon1.repo)
-      rmrf.sync(dbPath1)
-      rmrf.sync(dbPath2)
     })
 
     it('has correct initial state', async () => {
