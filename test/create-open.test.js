@@ -281,20 +281,25 @@ Object.keys(testAPIs).forEach(API => {
         assert.equal(db.access.write[0], db.identity.id)
       })
 
-      // it('doesn\'t open a database if we don\'t have it locally', async () => {
-      //   const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'non-existent')
-      //   return new Promise((resolve, reject) => {
-      //     setTimeout(resolve, 100)
-      //     orbitdb.open(address)
-      //       .then(() => reject(new Error('Shouldn\'t open the database')))
-      //       .catch(reject)
-      //   })
-      // })
+      it('doesn\'t open a database if we don\'t have it locally', async () => {
+        const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'non-existent')
+        return new Promise((resolve, reject) => {
+          orbitdb.open(address)
+            .then(async () => {
+              await orbitdb.close()
+              reject(new Error('Shouldn\'t open the database'))
+            })
+            .catch(reject)
+        })
+      })
 
       it('throws an error if trying to open a database locally and we don\'t have it', () => {
         const address = new OrbitDBAddress(db.address.root.slice(0, -1) + 'A', 'second')
         return orbitdb.open(address, { localOnly: true })
-          .then(() => new Error('Shouldn\'t open the database'))
+          .then(async () => {
+            await orbitdb.close()
+            return new Error('Shouldn\'t open the database')
+          })
           .catch(e => {
             assert.equal(e.toString(), `Error: Database '${address}' doesn't exist!`)
           })
